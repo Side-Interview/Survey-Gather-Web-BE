@@ -17,6 +17,7 @@ DATABASES = {
         "PASSWORD": env("MYSQL_PASSWORD"),
         "HOST": env("MYSQL_HOST"),
         "PORT": env("MYSQL_PORT"),
+        "OPTIONS": env.dict("MYSQL_OPTIONS", default={}),
     }
 }
 
