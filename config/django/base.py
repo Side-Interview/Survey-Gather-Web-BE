@@ -1,11 +1,11 @@
 import os
 import logging
-
+from pathlib import Path
 from config.env import BASE_DIR, APPS_DIR, env
 import pymysql
 
 env.read_env(os.path.join(BASE_DIR, ".env"))
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 logger = logging.getLogger("django")
 
 SECRET_KEY = "=ug_ucl@yi6^mrcjyz%(u0%&g2adt#bz3@yos%#@*t#t!ypx=a"
@@ -15,7 +15,9 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
-LOCAL_APPS = []
+LOCAL_APPS = [
+    "users.apps.UsersConfig",
+]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -80,6 +82,13 @@ if os.environ.get("GITHUB_WORKFLOW"):
             "PORT": "3306",
         }
     }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -97,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.User"
 
 # Internationalization
 LANGUAGE_CODE = "ko-kr"
