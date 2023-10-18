@@ -126,3 +126,14 @@ class UserSignUp(APIView):
 
     def post(self, request):
         pass
+
+
+class UserLogOut(APIView):
+    """
+    사용자 로그아웃 API
+
+    POST 로그아웃
+    """
+
+    def post(self, request):
+        pass
