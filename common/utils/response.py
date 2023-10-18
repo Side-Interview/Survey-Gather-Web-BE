@@ -17,7 +17,14 @@ RESPONSE_CODE_DICT = {
 
 class JsonResponseGenerator:
     @staticmethod
-    def create_response(code, data={}):
+    def create_response(code: int, data: dict = {}):
+        """
+        주어진 응답 코드와 데이터를 기반으로 JSON 응답을 생성합니다.
+
+        :param code: 응답 코드
+        :param data: 응답 데이터 (기본값: 빈 딕셔너리)
+        :return: Response 객체로 래핑된 JSON 응답
+        """
         code_info = RESPONSE_CODE_DICT.get(
             code,
             {
