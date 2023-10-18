@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
-
+from django.urls import path, include
 
 web_urlpatterns = []
 
@@ -14,6 +14,7 @@ urlpatterns = [
     # API
     *web_urlpatterns,
     *admin_urlpatterns,
+    path("api/v1/users/", include("users.urls")),
 ]
 
 from config.settings.debug_toolbar.setup import DebugToolbarSetup  # noqa
