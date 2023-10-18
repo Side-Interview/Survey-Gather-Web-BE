@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+from django.utils import timezone
 
 from common.models import CreateAtUpdateAt
 
@@ -56,22 +57,24 @@ class User(CreateAtUpdateAt, AbstractBaseUser, PermissionsMixin):
     is_agree_privacy = models.BooleanField(default=True)
     is_agree_marketing = models.BooleanField(default=False)
 
-    last_passsword_change_at = models.DateTimeField()
-    deleted_at = models.DateTimeField()
+    last_passsword_change_at = models.DateTimeField(default=timezone.now)
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
-    nickname = models.CharField(max_length=8)
-    thumnail_image_url = models.CharField(max_length=512)
-    name = models.CharField(max_length=8)
-    phone_number = models.CharField(max_length=16)
+    nickname = models.CharField(max_length=8, default="DEV")
+    thumnail_image_url = models.CharField(max_length=512, default="DEV thumbnail")
+    name = models.CharField(max_length=8, default="DEV name")
+    phone_number = models.CharField(max_length=16, null=True, blank=True)
 
     gender = models.CharField(
         max_length=8,
         choices=GenderChoices.choices,
+        null=True,
+        blank=True,
     )
     # MEMO : 반영 여부 모름
     # address = models.CharField(max_length=64)
     # address_detail = models.CharField(max_length=64)
-    birth = models.DateField()
+    birth = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.email
